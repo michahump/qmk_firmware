@@ -32,7 +32,14 @@
 #define TAP_CODE_DELAY 10
 
 /* communication between sides */
-#define SPLIT_USB_DETECT
+
+// Split USB Detect determines the master controller based on which
+// is receiveing USB data. It causes crashes when the controller is
+// powered but not connected to USB data (e.g. when connected to a hub which
+// is disconnected from the host).
+//
+// #define SPLIT_USB_DETECT
+#define EE_HANDS
 
 #define USE_SERIAL
 #define SERIAL_USE_MULTI_TRANSACTION
@@ -40,4 +47,3 @@
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
