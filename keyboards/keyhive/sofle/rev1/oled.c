@@ -163,18 +163,35 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
             oled_write_raw_P(run[abs(1 - current_frame)], ANIM_SIZE);
         }
 
-        oled_set_cursor(LUNA_X+32,0);
+        oled_set_cursor(LUNA_X+16,0);
         oled_write_P(PSTR("\n"), false);
         oled_write_P(PSTR("WPM:\n"), false);
+
+        char buf[6];
 
         int cwpm = get_current_wpm();
         if (cwpm <= 1) {
             oled_write_ln_P(PSTR("  -"), false);
         } else {
-            char buf[4];
             snprintf(buf, sizeof(buf), "%3d", get_current_wpm());
-            oled_write(buf, false);
+            oled_write_ln(buf, false);
         }
+
+        oled_write_P(PSTR("\n"), false);
+        oled_write_P(PSTR("\n"), false);
+
+        bool rgb_en = rgblight_is_enabled();
+        oled_write_ln_P(PSTR(" RGB "), rgb_en);
+
+        snprintf(buf, sizeof(buf), "M: %2d", rgblight_get_mode());
+        oled_write_ln(buf, false);
+
+        snprintf(buf, sizeof(buf), "H: %3d", rgblight_get_hue());
+        oled_write(buf, false);
+        snprintf(buf, sizeof(buf), "S: %3d", rgblight_get_sat());
+        oled_write(buf, false);
+        snprintf(buf, sizeof(buf), "V: %3d", rgblight_get_val());
+        oled_write(buf, false);
     }
 
     // animation timer
